@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UnnamedGamesHub</title>
+    <meta
+      name="description"
+      content="UnnamedGamesHub - A hub for all my web games and browser experiences."
+    />
+    <style>
+      :root {
+        --bg-dark: #0b1020;
+        --bg-mid: #111827;
+        --panel: rgba(17, 24, 39, 0.8);
+        --panel-border: rgba(148, 163, 184, 0.2);
+        --text: #e5eefb;
+        --muted: #a8b4cc;
+        --primary: #7c3aed;
+        --secondary: #22c55e;
+        --accent: #f59e0b;
+        --shadow: 0 20px 45px rgba(15, 23, 42, 0.5);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(135deg, var(--bg-dark), #111827 35%, #0f172a);
+        color: var(--text);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .container {
+        width: min(1120px, calc(100% - 2rem));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(12px);
+        background: rgba(11, 16, 32, 0.75);
+        border-bottom: 1px solid var(--panel-border);
+      }
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+      }
+
+      .brand {
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.92rem;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1.1rem;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .nav-links a:hover {
+        color: var(--text);
+      }
+
+      .hero {
+        padding: 5rem 0 3rem;
+      }
+
+      .hero-inner {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        background: rgba(124, 58, 237, 0.15);
+        border: 1px solid rgba(124, 58, 237, 0.35);
+        color: #d8c7ff;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 1rem 0 0.9rem;
+        font-size: clamp(2.6rem, 6vw, 5rem);
+        line-height: 0.98;
+        letter-spacing: -0.06em;
+      }
+
+      .hero p {
+        margin: 0;
+        max-width: 620px;
+        color: var(--muted);
+        font-size: 1.05rem;
+        line-height: 1.7;
+      }
+
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        font-weight: 700;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+      }
+
+      .button.primary {
+        background: linear-gradient(135deg, var(--primary), #9f67ff);
+        color: white;
+        padding: 0.9rem 1.3rem;
+        box-shadow: var(--shadow);
+      }
+
+      .button.secondary {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--panel-border);
+        color: var(--text);
+        padding: 0.9rem 1.3rem;
+      }
+
+      .hero-panel {
+        background: linear-gradient(180deg, rgba(17, 24, 39, 0.9), rgba(15, 23, 42, 0.72));
+        border: 1px solid var(--panel-border);
+        border-radius: 22px;
+        box-shadow: var(--shadow);
+        padding: 1.2rem;
+      }
+
+      .game-spotlight {
+        background: linear-gradient(135deg, rgba(124, 58, 237, 0.24), rgba(34, 197, 94, 0.14));
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 18px;
+        padding: 1.1rem;
+      }
+
+      .spotlight-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.9rem;
+        color: var(--muted);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .spotlight-card {
+        display: grid;
+        gap: 0.8rem;
+      }
+
+      .spotlight-box {
+        min-height: 180px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #3b82f6, #8b5cf6 50%, #14b8a6);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .spotlight-box::before,
+      .spotlight-box::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      .spotlight-box::before {
+        width: 170px;
+        height: 170px;
+        right: -35px;
+        top: -25px;
+      }
+
+      .spotlight-box::after {
+        width: 120px;
+        height: 120px;
+        left: -15px;
+        bottom: -30px;
+      }
+
+      .spotlight-stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.8rem;
+      }
+
+      .stat {
+        background: rgba(148, 163, 184, 0.06);
+        border: 1px solid rgba(148, 163, 184, 0.12);
+        border-radius: 12px;
+        padding: 0.8rem 0.6rem;
+        text-align: center;
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 1.25rem;
+      }
+
+      .stat span {
+        color: var(--muted);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      section {
+        padding: 2rem 0 0;
+      }
+
+      .section-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 1rem;
+        margin-bottom: 1.4rem;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: clamp(1.9rem, 3vw, 2.5rem);
+        letter-spacing: -0.04em;
+      }
+
+      .section-heading p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .games-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.3rem;
+        padding-bottom: 5rem;
+      }
+
+      .card {
+        background: linear-gradient(180deg, rgba(17, 24, 39, 0.9), rgba(15, 23, 42, 0.72));
+        border: 1px solid var(--panel-border);
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: transform 0.2s ease, border-color 0.2s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(124, 58, 237, 0.5);
+      }
+
+      .card-visual {
+        min-height: 180px;
+        padding: 1rem;
+        display: flex;
+        align-items: end;
+        font-size: 1.4rem;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+      }
+
+      .card-visual.one {
+        background: linear-gradient(135deg, #ea580c, #f59e0b 55%, #facc15);
+      }
+
+      .card-visual.two {
+        background: linear-gradient(135deg, #22c55e, #10b981 50%, #14b8a6);
+      }
+
+      .card-visual.three {
+        background: linear-gradient(135deg, #3b82f6, #8b5cf6 55%, #ec4899);
+      }
+
+      .card-visual.four {
+        background: linear-gradient(135deg, #475569, #1e293b 55%, #0f172a);
+      }
+
+      .card-body {
+        padding: 1.2rem 1.2rem 1.3rem;
+      }
+
+      .tag {
+        display: inline-block;
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        color: #dbeafe;
+        text-transform: uppercase;
+        background: rgba(59, 130, 246, 0.14);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        padding: 0.38rem 0.6rem;
+        border-radius: 999px;
+      }
+
+      .card h3 {
+        margin: 0.9rem 0 0.55rem;
+        font-size: 1.5rem;
+        letter-spacing: -0.03em;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .card-footer {
+        margin-top: 1.2rem;
+      }
+
+      .card .button {
+        width: 100%;
+        padding: 0.8rem 1rem;
+      }
+
+      footer {
+        padding: 1rem 0 2.8rem;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      @media (max-width: 860px) {
+        .hero-inner,
+        .games-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .nav {
+          flex-direction: column;
+          gap: 0.8rem;
+        }
+
+        .nav-links {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="container nav">
+        <a class="brand" href="#top">UnnamedGamesHub</a>
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="#games">Games</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </div>
+
+    <main id="top" class="container">
+      <header class="hero">
+        <div class="hero-inner">
+          <div>
+            <span class="eyebrow">Game Portal</span>
+            <h1>Play my games</h1>
+            <p>
+              Welcome to UnnamedGamesHub — a place where all my browser games live.
+              Click a game below and jump straight into the fun.
+            </p>
+            <div class="cta-row">
+              <a class="button primary" href="#games">Browse Games</a>
+              <a class="button secondary" href="#about">Learn More</a>
+            </div>
+          </div>
+
+          <div class="hero-panel" aria-label="Featured game panel">
+            <div class="game-spotlight">
+              <div class="spotlight-header">
+                <span>Featured</span>
+                <span>Now Live</span>
+              </div>
+              <div class="spotlight-card">
+                <div class="spotlight-box"></div>
+                <div class="spotlight-stats">
+                  <div class="stat">
+                    <strong>3</strong>
+                    <span>Games</span>
+                  </div>
+                  <div class="stat">
+                    <strong>100%</strong>
+                    <span>Playable</span>
+                  </div>
+                  <div class="stat">
+                    <strong>∞</strong>
+                    <span>Fun</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section id="games" aria-labelledby="games-title">
+        <div class="section-heading">
+          <h2 id="games-title">Available Games</h2>
+          <p>More games are added as they launch.</p>
+        </div>
+
+        <div class="games-grid">
+          <article class="card">
+            <div class="card-visual one">Brotato</div>
+            <div class="card-body">
+              <span class="tag">Action</span>
+              <h3>Brotato</h3>
+              <p>Quick, exciting gameplay with nonstop action and challenge.</p>
+              <div class="card-footer">
+                <a class="button primary" href="https://unnamedgames452.github.io/Brotato/" target="_blank" rel="noreferrer">Play Now</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-visual two">Tanuki Sunset</div>
+            <div class="card-body">
+              <span class="tag">Adventure</span>
+              <h3>Tanuki Sunset</h3>
+              <p>An immersive experience with a relaxed style and engaging world.</p>
+              <div class="card-footer">
+                <a class="button primary" href="https://unnamedgames452.github.io/Tanuki-Sunset/" target="_blank" rel="noreferrer">Play Now</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-visual three">Burrito Bison</div>
+            <div class="card-body">
+              <span class="tag">Arcade</span>
+              <h3>Burrito Bison</h3>
+              <p>Chaotic fun and fast-paced gameplay built for short, replayable sessions.</p>
+              <div class="card-footer">
+                <a class="button primary" href="https://unnamedgames452.github.io/BurritoBison/" target="_blank" rel="noreferrer">Play Now</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-visual four">Coming Soon</div>
+            <div class="card-body">
+              <span class="tag">Future</span>
+              <h3>New Game</h3>
+              <p>More games will be added here soon. Keep checking back for updates.</p>
+              <div class="card-footer">
+                <a class="button secondary" href="#top">Stay Tuned</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="about" aria-labelledby="about-title">
+        <div class="section-heading">
+          <h2 id="about-title">About This Hub</h2>
+        </div>
+        <p style="margin:0; max-width:700px; color: var(--muted); line-height:1.7;">
+          This website acts as a central hub for all of my games. Each card links to a
+          live hosted game, so visitors can quickly find and play anything I publish.
+          As I add more games, this page can be expanded with new cards and categories.
+        </p>
+      </section>
+
+      <footer id="contact">
+        <p>© 2026 UnnamedGamesHub</p>
+      </footer>
+    </main>
+  </body>
+</html>
